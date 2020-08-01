@@ -9,5 +9,6 @@ namespace myapp.Models
     {
         public int id { get; set; }
         public string name { get; set; }
+        public int categoryId { get; set; }
     }
 }
