@@ -10,6 +10,6 @@ namespace productsapi.Repositories
     {
         List<Product> getAll();
         Product gaetOneById();
-        Guid addNew(Product product);
+        Guid id(Product product);
     }
 }
