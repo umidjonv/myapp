@@ -6,22 +6,49 @@ using System.Threading.Tasks;
 
 namespace productsapi.Repositories
 {
-    public class ProductRepo : Iproduct
+    public class ProductRepo : IProduct
     {
-        public List<Product> getAll()
+
+        public static IEnumerable<Product> products;
+
+        public ProductRepo()
+        {
+            products = new List<Product>();
+        }
+
+        public IEnumerable<Product> getAll()
+        {
+            return products;
+        }
+
+        public Product getOneById()
         {
             throw new NotImplementedException();
         }
 
-        public Product gaetOneById()
+        public int addProduct(Product product)
         {
             throw new NotImplementedException();
         }
 
-        public Guid addNew(Product product)
+        IEnumerable<Product> IProduct.getAll()
         {
             throw new NotImplementedException();
         }
-     
+
+        public bool deleteProduct(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool editProduct(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Category getProductCategory(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

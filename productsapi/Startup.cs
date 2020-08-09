@@ -6,10 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using productsapi.Models;
+using productsapi.Repositories;
 
 namespace productsapi
 {
@@ -26,6 +29,10 @@ namespace productsapi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<ProductContext>(options =>
+             options.UseNpgsql("Host=localhost;Database=api;Username=postgres;Password=isfan2006"));
+
+            services.AddScoped<ICategory, CategoryRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

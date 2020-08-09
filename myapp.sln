@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "myapp", "myapp\myapp.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "myapp2", "myapp2\myapp2.csproj", "{E9899F14-F887-4B01-974F-01592269DCB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "productsapi", "productsapi\productsapi.csproj", "{D7055C01-38EB-4EED-B733-C01A18092CFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "productsapi", "productsapi\productsapi.csproj", "{D7055C01-38EB-4EED-B733-C01A18092CFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "organisationsapi", "organisationsapi\organisationsapi.csproj", "{B912C6E3-C00A-41EB-979D-3F50C25CABC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "organisationsapi", "organisationsapi\organisationsapi.csproj", "{B912C6E3-C00A-41EB-979D-3F50C25CABC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orders", "orders\orders.csproj", "{B8492BCF-B6A1-463F-B327-E0C2BAD268E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orders", "orders\orders.csproj", "{B8492BCF-B6A1-463F-B327-E0C2BAD268E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ordersapi2", "ordersapi2\ordersapi2.csproj", "{C3FC0E03-9742-4DE2-8E95-3F1288C2843B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ordersapi2", "ordersapi2\ordersapi2.csproj", "{C3FC0E03-9742-4DE2-8E95-3F1288C2843B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
