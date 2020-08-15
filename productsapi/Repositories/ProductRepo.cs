@@ -1,4 +1,5 @@
-﻿using productsapi.Models;
+﻿using Microsoft.EntityFrameworkCore.Internal;
+using productsapi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,46 +10,54 @@ namespace productsapi.Repositories
     public class ProductRepo : IProduct
     {
 
-        public static IEnumerable<Product> products;
+        //public static IEnumerable<Product> products;
 
-        public ProductRepo()
+        //public ProductRepo()
+        //{
+        //    products = new List<Product>();
+        //}
+
+
+        ProductContext _context;
+
+        public ProductRepo(ProductContext context)
         {
-            products = new List<Product>();
+            _context = context;
         }
 
-        public IEnumerable<Product> getAll()
+        public Product GetOneById(Guid id)
         {
-            return products;
+            return _context.Product.FirstOrDefault(x => x.id == id);
         }
 
-        public Product getOneById()
+        public IEnumerable<Product> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Product.ToList();
         }
 
-        public int addProduct(Product product)
+        public void Add(Product entity)
         {
-            throw new NotImplementedException();
+            _context.Product.Add(entity);
         }
 
-        IEnumerable<Product> IProduct.getAll()
+        public void Edit(Product entity)
         {
-            throw new NotImplementedException();
+            _context.Update(entity);
         }
 
-        public bool deleteProduct(int id)
+        public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            _context.Product.FirstOrDefault(x => x.id == id).status = false;
         }
 
-        public bool editProduct(int id)
+        public int SaveChanges()
         {
-            throw new NotImplementedException();
+            return _context.SaveChanges();
         }
 
-        public Category getProductCategory(int id)
-        {
-            throw new NotImplementedException();
-        }
+        //public Category getProductCategory(Guid id)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

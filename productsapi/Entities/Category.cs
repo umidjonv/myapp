@@ -21,7 +21,8 @@ namespace productsapi.Models
     public class Category
     {
         [Key]
-        public int id { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid id { get; set; }
 
         [Required]
         [MaxLength(100)]

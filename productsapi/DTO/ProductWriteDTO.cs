@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace productsapi.DTO
 {
-    public class ProductReadDTO
+    public class ProductWriteDTO
     {
-        public Guid id { get; set; }
 
         public string name { get; set; }
 
@@ -18,8 +17,8 @@ namespace productsapi.DTO
 
         public float salePrice { get; set; }
 
-        public string categoryName { get; set; }
+        public Guid categoryId { get; set; }
 
-        
+        public Category category { get; set; }
     }
 }

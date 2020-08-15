@@ -18,12 +18,13 @@ namespace productsapi.Repositories
 
         //void delete(int id);
 
-        Category getParent(int id);
+        Category getParent(Guid id);
 
-        IEnumerable<Category> getChilds(int id);
+        IEnumerable<Category> getChilds(Guid id);
 
-        IEnumerable<Product> getProducts(int id);
+        IEnumerable<Product> getProducts(Guid id);
 
-        void saveChanges();
+        //void SaveChanges();
+
     }
 }

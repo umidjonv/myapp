@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using productsapi.Entities;
-//using productsapi.Entities.Log;
 using productsapi.Models;
 using System;
 using System.Collections.Generic;
@@ -39,15 +38,15 @@ namespace productsapi.Models
 
             modelBuilder.Entity<EntityLog>()
                 .Property(b => b.createdAt)
-                  .HasColumnType("timestamp without time zone")
-                  .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                  .ValueGeneratedOnAdd(); 
+                    .HasColumnType("timestamp without time zone")
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .ValueGeneratedOnAdd(); 
 
             modelBuilder.Entity<EntityLog>()
                 .Property(b => b.updatedAt)
-                .HasColumnType("timestamp without time zone")
-                  .HasDefaultValueSql("CURRENT_TIMESTAMP") 
-                  .ValueGeneratedOnAddOrUpdate();
+                   .HasColumnType("timestamp without time zone")
+                   .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .ValueGeneratedOnAddOrUpdate();
 
             modelBuilder.Entity<EntityLog>()
                 .Property(b => b.status)

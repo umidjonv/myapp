@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,10 +30,14 @@ namespace productsapi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<ProductContext>(options =>
-             options.UseNpgsql("Host=localhost;Database=api;Username=postgres;Password=isfan2006"));
+            options.UseNpgsql("Host=localhost;Database=api;Username=postgres;Password=isfan2006"));
 
             services.AddScoped<ICategory, CategoryRepo>();
+            services.AddScoped<IProduct, ProductRepo>();
+
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +58,13 @@ namespace productsapi
             {
                 endpoints.MapControllers();
             });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
+            });
+
         }
     }
 }

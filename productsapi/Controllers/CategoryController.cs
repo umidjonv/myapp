@@ -25,10 +25,10 @@ namespace productsapi.Controllers
         }
        
         [HttpGet]
-        public IActionResult get()
+        public IActionResult Get()
         {
 
-            IEnumerable<Category> categories = _repo.getAll();
+            IEnumerable<Category> categories = _repo.GetAll();
 
             IEnumerable<CategoryReadDTO> readCat = _mapper.Map<IEnumerable<CategoryReadDTO>>(categories);
 
@@ -37,21 +37,91 @@ namespace productsapi.Controllers
         
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public IActionResult addNew(CategoryWriteDTO category)
+        public IActionResult AddNew(CategoryWriteDTO category)
         {
            if( category != null)
             {
 
                 if (category.parentId != null)
-                    category.parent = _repo.getOneById(category.parentId);
+                
+                    category.parent = _repo.GetOneById(category.parentId);
+
+                    Category cat = _mapper.Map<Category>(category);
+                _repo.Add(cat);
+
+                if (_repo.SaveChanges() > 0)
+                    return Ok("created");
+                
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+
+        public IActionResult GetOneById(Guid id)
+        {
+            Category category = _repo.GetOneById(id);
+
+            if(category != null)
+            {
+                CategoryReadDTO readCat = _mapper.Map<CategoryReadDTO>(category);
+                return Ok(readCat);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+
+        public IActionResult Edit(Guid id , CategoryWriteDTO category)
+        {
+            if (category != null)
+            {
+
+                //Category parent;
+                if (category.parentId != null)
+                    category.parent = _repo.GetOneById(category.parentId);
 
                 Category cat = _mapper.Map<Category>(category);
-                _repo.add(cat);
-                _repo.saveChanges();
-                return CreatedAtRoute("{id}", cat.id);
+                _repo.Edit(cat);
+
+                if (_repo.SaveChanges() > 0)
+                    return Ok("updated");
 
             }
-           else { return BadRequest(); }
+            return BadRequest();
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            if (id != null)
+            {
+                _repo.Delete(id);
+                if (_repo.SaveChanges() > 0)
+                    return Ok("deleted");
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
+        [Route("{id}/parent")]
+
+        public IActionResult GetParent(Guid id)
+        {
+            if(id != null)
+            {
+                Category cat = _repo.getParent(id);
+
+                if(cat != null)
+                  return Ok(cat);
+            }
+            return NotFound();
+        }
+
     }
 }

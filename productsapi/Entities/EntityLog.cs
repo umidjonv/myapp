@@ -11,8 +11,8 @@ namespace productsapi.Entities
     public class EntityLog : IEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid id { get; set; }
 
         public DateTime createdAt { get; set; }
 

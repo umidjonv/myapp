@@ -11,7 +11,7 @@ namespace productsapi.Models
     public class Product
     {
         [Key]
-        public int id { get; set; }
+        public Guid id { get; set; }
 
         [Required]
         [MaxLength(100)]
@@ -20,13 +20,14 @@ namespace productsapi.Models
         [MaxLength(500)]
         public string description { get; set; }
 
-        public decimal price { get; set; }
+        public float price { get; set; }
 
-        public decimal salePrice { get; set; }
+        public float salePrice { get; set; }
+
         [Required]
-        public int categoryId { get; set; }
+        public Category category { get; set; }
 
-        public int status { get; set; }
+        public bool status { get; set; }
 
         //public int orgId { get; set; }
 

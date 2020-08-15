@@ -7,16 +7,16 @@ namespace productsapi.Repositories
 {
     public interface IDefaultRepo<T>
     {
-        IEnumerable<T> getAll();
+        IEnumerable<T> GetAll();
 
-        T getOneById(int id);
+        T GetOneById(Guid id);
 
-        void add(T entity);
+        void Add(T entity);
 
-        void edit(T entity);
+        void Edit(T entity);
 
-        void delete(int id);
+        void Delete(Guid id);
 
-        void saveChanges();
+        int SaveChanges();
     }
 }

@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace productsapi.Repositories
 {
-    interface IProduct
+    public interface IProduct : IDefaultRepo<Product>
     {
-        IEnumerable<Product> getAll();
-        Product getOneById();
-        int addProduct(Product product);
-        bool editProduct(int id);
-        bool deleteProduct(int id);
-        Category getProductCategory(int id);
+    //    IEnumerable<Product> getAll();
+
+    //    Product getOneById(Guid id);
+
+    //    void addProduct(Product entity);
+
+    //    void editProduct(Product entity);
+
+    //    void deleteProduct(Guid id);
+
+       // Category getProductCategory(Guid id);
 
 
         //Product getProductImages();

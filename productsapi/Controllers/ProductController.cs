@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using productsapi.DTO;
 using productsapi.Models;
 using productsapi.Repositories;
 
@@ -12,26 +16,85 @@ namespace productsapi.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerBase
     {
-        ProductRepo demo = new ProductRepo();
+        private readonly IProduct _prorepo;
 
-        [Route("")]
+        private readonly ICategory _catrepo;
+
+        private readonly IMapper _mapper;
+
+        public ProductController(IProduct prorepo , ICategory catrepo , IMapper mapper)
+        {
+            _prorepo = prorepo;
+            _catrepo = catrepo;
+            _mapper = mapper;
+        }
+
         [HttpGet]
         public IActionResult get()
         {
+            IEnumerable<Product> products = _prorepo.GetAll();
+            IEnumerable<ProductReadDTO> readProduct = _mapper.Map<IEnumerable<ProductReadDTO>>(products);
 
-            IEnumerable<Product> products = demo.getAll();
-
-            return Ok(products);
+            return Ok(readProduct);
         }
-        [Route("")]
+
         [HttpPost]
-        public IActionResult add (Product product)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public IActionResult add (ProductWriteDTO product)
         {
-            List<Product> list = ProductRepo.products as List<Product>;
-            //product.id = demo.id() + 1;
-            list.Add(product);
-            return Ok();
+            if(product != null)
+            {
+                if (product.categoryId != null)
+                {
+                    product.category = _catrepo.GetOneById(product.categoryId);
+                    Product prodNew = _mapper.Map<Product>(product);
+
+                    _prorepo.Add(prodNew);
+
+                    if (_prorepo.SaveChanges() > 0)
+                        return Ok("created");
+                }
+            }
+
+            return BadRequest(); 
         }
 
+
+        [HttpPut]
+        [Route("{id}")]
+        public IActionResult edit(ProductWriteDTO product)
+        {
+            if(product != null)
+            {
+                if (product.categoryId != null)
+                {
+                    product.category = _catrepo.GetOneById(product.categoryId);
+                    Product prodEdit = _mapper.Map<Product>(product);
+
+                    _prorepo.Edit(prodEdit);
+                    _prorepo.SaveChanges();
+
+                    if (_prorepo.SaveChanges() > 0)
+                        return Ok("updated");
+                }
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult delete(Guid id)
+        {
+            if(id != null)
+            {
+                _prorepo.Delete(id);
+
+                if (_prorepo.SaveChanges() > 0)
+                    return Ok("deleted");
+            }
+
+            return NotFound();
+        }
     }
 }

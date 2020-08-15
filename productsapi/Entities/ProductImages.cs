@@ -10,12 +10,12 @@ namespace productsapi.Models
     public class ProductImages
     {
         [Key]
-        public int id { get; set; }
+        public Guid id { get; set; }
         public Product productId { get; set; }
         public string fileName { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
-        public int status { get; set; }
+        public Guid status { get; set; }
 
     }
 }

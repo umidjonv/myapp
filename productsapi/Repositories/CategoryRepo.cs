@@ -20,52 +20,52 @@ namespace productsapi.Repositories
         }
 
 
-        public void add(Category category)
+        public void Add(Category category)
         {
             _context.Category.Add(category);
         }
 
 
-        public void delete(int id)
+        public void Delete(Guid id)
         {
             _context.Category.FirstOrDefault<Category>(x => x.id == id).status = false;
 
 
         }
 
-        public void edit(Category category)
+        public void Edit(Category category)
         {
             _context.Category.Update(category);
         }
 
-        public IEnumerable<Category> getAll()
+        public IEnumerable<Category> GetAll()
         {
             return _context.Category.ToList();
         }
 
-        public IEnumerable<Category> getChilds(int id)
+        public IEnumerable<Category> getChilds(Guid id)
         {
             return _context.Category.Where(x => x.id == id).ToList();
         }
 
-        public Category getOneById(int id)
+        public Category GetOneById(Guid id)
         {
             return _context.Category.FirstOrDefault(x => x.id == id);
         }
 
-        public Category getParent(int id)
+        public Category getParent(Guid id)
         {
             return _context.Category.FirstOrDefault(x => x.id == id);
         }
 
-        public IEnumerable<Product> getProducts(int id)
+        public IEnumerable<Product> getProducts(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public void saveChanges()
+        public int SaveChanges()
         {
-            _context.SaveChanges();
+            return _context.SaveChanges();
         }
     }
 }

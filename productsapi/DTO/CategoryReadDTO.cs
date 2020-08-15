@@ -7,7 +7,7 @@ namespace productsapi.DTO
 {
     public class CategoryReadDTO
     {
-        public int ud { get; set; }
+        public Guid id { get; set; }
 
         public string name { get; set; }
 

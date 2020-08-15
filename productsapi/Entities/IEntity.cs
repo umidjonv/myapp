@@ -9,7 +9,7 @@ namespace productsapi.Entities
 {
     interface IEntity
     {
-        public int id { get; set; }
+        public Guid id { get; set; }
 
         public DateTime createdAt { get; set; }
 
