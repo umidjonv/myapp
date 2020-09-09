@@ -45,26 +45,32 @@ namespace productsapi
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                {
+                    app.UseDeveloperExceptionPage();
+                }
+
+                app.UseHttpsRedirection();
+
+                app.UseRouting();
+
+                app.UseAuthorization();
+
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
+
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
+                });
+                //List<User> users = GetUsers();
+                //User[] array = users.ToArray();
+
+                //List<Category> cats = GetAll();
+                //string[] array = cats.Select(c => c.id).ToArray();
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
-            });
-
         }
     }
 }

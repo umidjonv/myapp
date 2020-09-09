@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace productsapi.Entities
 {
-    interface IEntity
+    public interface IEntity
     {
         public Guid id { get; set; }
 

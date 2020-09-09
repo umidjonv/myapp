@@ -43,12 +43,11 @@ namespace productsapi.Controllers
             {
 
                 if (category.parentId != null)
-                
                     category.parent = _repo.GetOneById(category.parentId);
 
                     Category cat = _mapper.Map<Category>(category);
-                _repo.Add(cat);
 
+                _repo.Add(cat);
                 if (_repo.SaveChanges() > 0)
                     return Ok("created");
                 

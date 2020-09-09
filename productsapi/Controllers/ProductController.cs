@@ -22,6 +22,8 @@ namespace productsapi.Controllers
 
         private readonly IMapper _mapper;
 
+        private readonly CategoryReadDTO catRead;
+
         public ProductController(IProduct prorepo , ICategory catrepo , IMapper mapper)
         {
             _prorepo = prorepo;
@@ -42,18 +44,18 @@ namespace productsapi.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public IActionResult add (ProductWriteDTO product)
         {
+
             if(product != null)
             {
-                if (product.categoryId != null)
-                {
+                if (product.categoryId != catRead.id)
                     product.category = _catrepo.GetOneById(product.categoryId);
+
                     Product prodNew = _mapper.Map<Product>(product);
 
                     _prorepo.Add(prodNew);
 
                     if (_prorepo.SaveChanges() > 0)
                         return Ok("created");
-                }
             }
 
             return BadRequest(); 
@@ -67,16 +69,16 @@ namespace productsapi.Controllers
             if(product != null)
             {
                 if (product.categoryId != null)
-                {
                     product.category = _catrepo.GetOneById(product.categoryId);
-                    Product prodEdit = _mapper.Map<Product>(product);
+  
+                Product prodEdit = _mapper.Map<Product>(product);
 
                     _prorepo.Edit(prodEdit);
                     _prorepo.SaveChanges();
 
                     if (_prorepo.SaveChanges() > 0)
                         return Ok("updated");
-                }
+                
             }
 
             return BadRequest();

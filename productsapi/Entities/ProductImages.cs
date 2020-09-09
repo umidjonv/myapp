@@ -15,7 +15,7 @@ namespace productsapi.Models
         public string fileName { get; set; }
         public DateTime createdAt { get; set; }
         public DateTime updatedAt { get; set; }
-        public Guid status { get; set; }
+        public bool status { get; set; }
 
     }
 }
