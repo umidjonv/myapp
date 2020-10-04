@@ -22,82 +22,82 @@ namespace organisationsapi.Migrations
 
             modelBuilder.Entity("organisationsapi.Entites.Bank", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn);
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("BankAccount")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("MFO")
                         .HasColumnType("integer");
 
-                    b.Property<string>("address")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("bankAccount")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("character varying(200)")
                         .HasMaxLength(200);
 
-                    b.Property<bool>("status")
+                    b.Property<bool>("Status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Bank");
                 });
 
             modelBuilder.Entity("organisationsapi.Entites.Organisation", b =>
                 {
-                    b.Property<Guid>("id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("uuid_generate_v4()");
 
-                    b.Property<int?>("bankDetailsid")
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int?>("BankId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
                         .HasColumnType("character varying(500)")
                         .HasMaxLength(500);
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("character varying(200)")
                         .HasMaxLength(200);
 
-                    b.Property<string>("orgAddress")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("telNumber")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("character varying(70)")
                         .HasMaxLength(70);
 
-                    b.HasKey("id");
+                    b.Property<bool>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
 
-                    b.HasIndex("bankDetailsid");
+                    b.HasKey("Id");
+
+                    b.HasIndex("BankId");
 
                     b.ToTable("Organisation");
                 });
 
             modelBuilder.Entity("organisationsapi.Entites.Organisation", b =>
                 {
-                    b.HasOne("organisationsapi.Entites.Bank", "bankDetails")
+                    b.HasOne("organisationsapi.Entites.Bank", "BankDetails")
                         .WithMany()
-                        .HasForeignKey("bankDetailsid");
+                        .HasForeignKey("BankId");
                 });
 #pragma warning restore 612, 618
         }

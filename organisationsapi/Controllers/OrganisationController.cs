@@ -37,19 +37,19 @@ namespace organisationsapi.Controllers
         {
             IEnumerable<Organisation> organisations = _orgrepo.GetAll();
 
-            IEnumerable<OrgReadDTO> readOrg = _mapper.Map<IEnumerable<OrgReadDTO>>(organisations);
+            IEnumerable<OrgDTO> readOrg = _mapper.Map<IEnumerable<OrgDTO>>(organisations);
 
             return Ok(readOrg);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public IActionResult AddNew(OrgWriteDTO organisation)
+        public IActionResult AddNew(OrgDTO organisation)
         {
             if(organisation != null)
             {
-                if (organisation.bankId != 0)
-                    organisation.bankDetails = _bankrepo.GetOneById(organisation.bankId);
+                //if (organisation.BankId != 0)
+                //    organisation.BankDetails = _bankrepo.GetOneById(organisation.BankId);
 
                 Organisation orgNew = _mapper.Map<Organisation>(organisation);
 
@@ -63,17 +63,16 @@ namespace organisationsapi.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Edit(OrgWriteDTO orgWrite)
+        public IActionResult Edit(string id, OrgDTO orgWrite)
         {
-            if(orgWrite != null)
-            {
-                if (orgWrite.bankId != 0)
-                    orgWrite.bankDetails = _bankrepo.GetOneById(orgWrite.bankId);
+            Guid guid = Guid.Empty;
 
+            if (Guid.TryParse(id, out guid) && orgWrite != null)
+            {
                 Organisation orgEdit = _mapper.Map<Organisation>(orgWrite);
 
-                _orgrepo.Edit(orgEdit);
-                _orgrepo.SaveChanges();
+                _orgrepo.Edit(guid, orgEdit);
+                
 
                 if (_orgrepo.SaveChanges() > 0)
                     return Ok("Updated");
@@ -83,11 +82,13 @@ namespace organisationsapi.Controllers
 
         [HttpDelete]
         [Route("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(string id)
         {
-            if(id != null)
+            Guid guid = Guid.Empty;
+            
+            if(Guid.TryParse(id, out guid))
             {
-                _orgrepo.Delete(id);
+                _orgrepo.Delete(guid);
 
                 if (_orgrepo.SaveChanges() > 0)
                     return Ok("Deleted");

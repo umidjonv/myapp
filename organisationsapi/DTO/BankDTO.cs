@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace organisationsapi.Entites
+namespace organisationsapi.DTO
 {
-    public class Bank:BaseEntity
+    public class BankDTO
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(200)]
         public string Name { get; set; }
+
+        
+        public string Address { get; set; }
 
         [Required]
         public string BankAccount { get; set; }
@@ -23,10 +22,6 @@ namespace organisationsapi.Entites
         [Required]
         public int MFO { get; set; }
 
-        [Required]
-        public string Address { get; set; }
-
-        
 
     }
 }

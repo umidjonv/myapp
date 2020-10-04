@@ -22,12 +22,12 @@ namespace organisationsapi.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var org = modelBuilder.HasPostgresExtension("uuid-ossp").Entity<Organisation>();
-            org.Property(e => e.id).HasDefaultValueSql("uuid_generate_v4()");
-            org.Property(e => e.status).HasDefaultValue(true).ValueGeneratedOnAdd();
+            org.Property(e => e.Id).HasDefaultValueSql("uuid_generate_v4()");
+            org.Property(e => e.Status).HasDefaultValue(true).ValueGeneratedOnAdd();
 
             var bank = modelBuilder.Entity<Bank>();
-            bank.Property(e => e.id).UseIdentityAlwaysColumn();
-            bank.Property(e => e.status).HasDefaultValue(true).ValueGeneratedOnAdd();
+            bank.Property(e => e.Id).UseIdentityAlwaysColumn();
+            bank.Property(e => e.Status).HasDefaultValue(true).ValueGeneratedOnAdd();
         }
     }
 }

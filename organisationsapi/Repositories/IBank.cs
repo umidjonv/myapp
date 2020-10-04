@@ -14,7 +14,7 @@ namespace organisationsapi.Repositories
 
         void Add(Bank entity);
 
-        void Edit(Bank entity);
+        void Edit(int id, Bank entity);
 
         void Delete(int id);
 

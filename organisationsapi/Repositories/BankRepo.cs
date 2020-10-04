@@ -23,22 +23,29 @@ namespace organisationsapi.Repositories
 
         public void Delete(int id)
         {
-            _context.Bank.FirstOrDefault(x => x.id == id).status = false;
+            Bank bank = _context.Bank.FirstOrDefault(x => x.Id == id);
+            if (bank != null)
+            {
+                bank.Status = false;
+                _context.Update(bank);
+            }
         }
 
-        public void Edit(Bank entity)
+        public void Edit(int id, Bank entity)
         {
+            entity.Id = id;
+            
             _context.Update(entity);
         }
 
         public IEnumerable<Bank> GetAll()
         {
-            return _context.Bank.ToList();
+            return _context.Bank.Where(x=>x.Status).ToList();
         }
 
         public Bank GetOneById(int id)
         {
-            return _context.Bank.FirstOrDefault(x => x.id == id);
+            return _context.Bank.FirstOrDefault(x => x.Id == id&&x.Status);
         }
 
         public int SaveChanges()

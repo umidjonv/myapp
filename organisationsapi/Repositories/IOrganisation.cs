@@ -14,7 +14,7 @@ namespace organisationsapi.Repositories
 
         void Add(Organisation entity);
 
-        void Edit(Organisation entity);
+        void Edit(Guid id, Organisation entity);
 
         void Delete(Guid id);
 

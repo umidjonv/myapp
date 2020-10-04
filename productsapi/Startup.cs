@@ -57,6 +57,8 @@ namespace productsapi
 
                 app.UseEndpoints(endpoints =>
                 {
+                    endpoints.MapControllerRoute(name: "default",
+                        pattern: "{controller=swagger}/{action=Index}/{id?}");
                     endpoints.MapControllers();
                 });
 

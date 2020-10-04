@@ -13,15 +13,15 @@ namespace organisationsapi.Helpers
     {
         public ProfileMapper()
         {
-            CreateMap<Bank, BankReadDTO>();
+            CreateMap<Bank, BankDTO>().ReverseMap();
 
-            CreateMap<BankWriteDTO, Bank>();
+            //CreateMap<BankWriteDTO, Bank>();
 
-            CreateMap<Organisation, OrgReadDTO>()
-                .ForMember(d => d.bankName, opt => opt.MapFrom(src => src.bankDetails.name));
+            CreateMap<Organisation, OrgDTO>().ReverseMap();
 
-            CreateMap<OrgWriteDTO, Organisation>()
-                .ForMember(d => d.bankDetails, opt => opt.MapFrom(src => src.bankDetails));
+
+            //CreateMap<OrgWriteDTO, Organisation>()
+            //    .ForMember(d => d.BankDetails, opt => opt.MapFrom(src => src.BankDetails));
         }
     }
 }

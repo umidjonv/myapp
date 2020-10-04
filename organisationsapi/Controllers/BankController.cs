@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Design;
 using organisationsapi.DTO;
 using organisationsapi.Entites;
 using organisationsapi.Repositories;
@@ -30,14 +31,14 @@ namespace organisationsapi.Controllers
         {
             IEnumerable<Bank> bank = _bank.GetAll();
 
-            IEnumerable<BankReadDTO> bankRead = _mapper.Map<IEnumerable<BankReadDTO>>(bank);
+            IEnumerable<BankDTO> bankRead = _mapper.Map<IEnumerable<BankDTO>>(bank);
 
             return Ok(bankRead);
         }
 
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public IActionResult AddNew(BankWriteDTO bankWrite)
+        public IActionResult AddNew(BankDTO bankWrite)
         {
             if (bankWrite != null)
             {
@@ -60,7 +61,7 @@ namespace organisationsapi.Controllers
 
             if (bankDet != null)
             {
-                BankReadDTO bankRead = _mapper.Map<BankReadDTO>(bankDet);
+                BankDTO bankRead = _mapper.Map<BankDTO>(bankDet);
                 return Ok(bankRead);
             }
 
@@ -69,25 +70,24 @@ namespace organisationsapi.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Edit(int id, BankWriteDTO writeDTO)
+        public IActionResult Edit(int id, BankDTO writeDTO)
         {
-            if(writeDTO != null)
+            if(writeDTO != null && id>0)
             {
-
-                Bank bankDets = _mapper.Map<Bank>(writeDTO);
-                _bank.Edit(bankDets);
+                Bank bank = _mapper.Map<Bank>(writeDTO);
+                _bank.Edit(id,bank);
 
                 if (_bank.SaveChanges() > 0)
                     return Ok("updated");
             }
-            return BadRequest();
+            return NotFound();
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            if(id != 0)
+            if(id > 0)
             {
                 _bank.Delete(id);
 

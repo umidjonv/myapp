@@ -32,7 +32,7 @@ namespace organisationsapi
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddDbContext<OrganisationContext>(options =>
-            options.UseNpgsql("Host=localhost;Database=orgapi;Username=postgres;Password=isfan2006"));
+            options.UseNpgsql("Host=localhost;Database=orgapi;Username=postgres;Password=198923233171"));
 
             services.AddScoped<IOrganisation, OrganisationRepo>();
             services.AddScoped<IBank, BankRepo>();
